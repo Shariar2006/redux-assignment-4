@@ -1,12 +1,14 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
-import { Button } from './components/ui/button'
+import Navbar from './components/ui/layout/Navbar'
 
 function App() {
 
   return (
-    <>
-<Button>Click me</Button>
-    </>
+    <main className='container mx-auto'>
+      <Navbar/>
+      <Outlet/>
+    </main>
   )
 }
 
