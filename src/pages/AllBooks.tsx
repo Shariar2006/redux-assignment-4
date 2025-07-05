@@ -1,7 +1,9 @@
-import React from 'react'
+import Books from '@/components/modules/books/Books'
 
 export default function AllBooks() {
   return (
-    <div>AllBooks</div>
+    <div>
+      <Books/>
+    </div>
   )
 }
