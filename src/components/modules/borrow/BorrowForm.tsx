@@ -24,13 +24,13 @@ interface IProps {
     book: IBook
 }
 
-export default function BorrowForm({book}:IProps) {
+export default function BorrowForm({ book }: IProps) {
 
     const [open, setOpen] = useState(false)
-const navigate = useNavigate()
+    const navigate = useNavigate()
     const form = useForm()
 
-    const [createBorrow, {isLoading}] = useCreateBorrowMutation()
+    const [createBorrow, { isLoading }] = useCreateBorrowMutation()
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const borrowData = {
@@ -41,7 +41,7 @@ const navigate = useNavigate()
 
         const res = await createBorrow(borrowData)
         console.log(res)
-        if(res.data.success){
+        if (res.data.success) {
             toast(res.data.message)
             form.reset()
             setOpen(false)
@@ -69,14 +69,14 @@ const navigate = useNavigate()
                                     <FormItem>
                                         <FormLabel>Quantity</FormLabel>
                                         <FormControl>
-                                            <Input type='number' {...field} max={book.copies} min={0} value={field.value || ''} />
+                                            <Input type='number' {...field} max={book.copies} min={0} value={field.value || ''} placeholder='Number of copies' />
                                         </FormControl>
                                         <p className='text-sm text-gray-500'>Available copies: {book.copies}</p>
                                     </FormItem>
                                 )}
                             />
 
-<FormField
+                            <FormField
                                 control={form.control}
                                 name="dueDate"
                                 render={({ field }) => (
@@ -108,7 +108,7 @@ const navigate = useNavigate()
                                                     onSelect={field.onChange}
                                                     disabled={(date) =>
                                                         date < new Date()
-                                                      }
+                                                    }
                                                     captionLayout="dropdown"
                                                 />
                                             </PopoverContent>
@@ -116,13 +116,13 @@ const navigate = useNavigate()
                                     </FormItem>
                                 )}
                             />
-                    
-                    <DialogFooter>
-                        <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
-                        </DialogClose>
-                        <Button type="submit">{isLoading? 'Please wait...': 'Borrow'}</Button>
-                    </DialogFooter>
+
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DialogClose>
+                                <Button type="submit">{isLoading ? 'Please wait...' : 'Borrow'}</Button>
+                            </DialogFooter>
                         </form>
                     </Form>
                 </DialogContent>
