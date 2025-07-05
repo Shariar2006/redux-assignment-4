@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
+import video from '@/assets/bannar-video1.mp4'
 
 export default function Home() {
   return (
     <div className="relative max-h-[90vh] w-full overflow-hidden">
       <video
         className="w-full h-full object-cover"
-        src={'https://youtu.be/bOgbWoTaUII?si=fY5owl9eS062WdqJ'}
+        src={video}
         autoPlay
         muted
         loop
