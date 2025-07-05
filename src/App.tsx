@@ -8,7 +8,10 @@ function App() {
   return (
     <main className='container mx-auto'>
       <Navbar/>
+      <div className='min-h-[60vh] px-4'>
+
       <Outlet/>
+      </div>
       <Footer/>
     </main>
   )
