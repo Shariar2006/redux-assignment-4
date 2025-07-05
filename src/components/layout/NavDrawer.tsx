@@ -8,7 +8,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Link } from "react-router-dom"
-import { Input } from "../input"
+import { Input } from "../ui/input"
 
 
 export function NavDrawer() {

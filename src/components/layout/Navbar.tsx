@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from '@/assets/logo1.png'
-import { Input } from "../input";
+import { Input } from "../ui/input";
 import { Search } from "lucide-react";
 import { NavDrawer } from "./NavDrawer";
 
