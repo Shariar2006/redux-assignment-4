@@ -8,28 +8,45 @@ import {
     FormLabel,
 } from "@/components/ui/form"
 import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form'
-import { useCreateBookMutation } from '@/redux/api/baseApi'
+import { useUpdateBookMutation } from '@/redux/api/baseApi'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import type { IBook } from '@/types/book.interface'
 
-export default function AddBookForm() {
+interface IProps {
+    book: IBook
+}
+
+export default function EditBookForm({ book }: IProps) {
 
     const navigate = useNavigate()
-    const form = useForm()
+    const form = useForm({
+        defaultValues: {
+          title: book?.title,
+          author: book?.author,
+          genre: book?.genre,
+          copies: book?.copies,
+          isbn: book?.isbn,
+          description: book?.description || '',
+        },
+      })
 
-    const [createBook, { isLoading }] = useCreateBookMutation()
+    const [updateBook, { isLoading }] = useUpdateBookMutation()
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const res = await createBook(data)
+        const res = await updateBook({id:book?._id, body:data})
         console.log(res)
         if (res.data.success) {
             toast(res.data.message)
             form.reset()
             navigate('/books')
         }
+        console.log(data)
     }
+
+    console.log(book)
 
     return (
 
@@ -93,7 +110,7 @@ export default function AddBookForm() {
                         <FormItem>
                             <FormLabel>Copies <span className='text-red-500'>*</span></FormLabel>
                             <FormControl>
-                                <Input required type='number' {...field} min={0} value={field.value || ''} placeholder='Number of copies' />
+                                <Input required type='number' {...field} min={0} value={field.value || 0} placeholder='Number of copies' />
                             </FormControl>
                         </FormItem>
                     )}
@@ -129,7 +146,9 @@ export default function AddBookForm() {
                     )}
                 />
 
-                <Button type="submit">{isLoading ? 'Please wait...' : 'Create Book'}</Button>
+                <Button type="submit">
+                    {isLoading ? 'Please wait...' : 'Save Changes'}
+                </Button>
             </form>
         </Form>
     )

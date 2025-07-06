@@ -1,4 +1,3 @@
-import Books from '@/components/modules/books/Books'
 import BooksTable from '@/components/modules/books/BooksTable'
 
 export default function AllBooks() {

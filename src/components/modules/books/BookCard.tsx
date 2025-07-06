@@ -31,7 +31,7 @@ export default function BookCard({ book }: IProps) {
 
             <div className="mt-4 flex gap-2">
                 <Link to={`/books/${book?._id}`}><Button className="bg-primary">View</Button></Link>
-                <Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button>
+                <Link to={`/edit-book/${book?._id}`}><Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button></Link>
                 <Button className="border bg-white hover:bg-red-50 text-red-500 border-red-500 "><RiDeleteBin6Line /></Button>
                 <Link to={`/borrow/${book?._id}`}><Button variant="outline">Borrow</Button></Link>
             </div>

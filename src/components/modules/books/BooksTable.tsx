@@ -53,11 +53,11 @@ export default function BooksTable() {
                             <TableCell>{book?.genre}</TableCell>
                             <TableCell>{book?.isbn}</TableCell>
                             <TableCell>
-                            {book?.description && book?.description?.length > 50
-                    ? `${book?.description?.slice(0, 50)}...`
-                    : book.description}
+                                {book?.description && book?.description?.length > 50
+                                    ? `${book?.description?.slice(0, 50)}...`
+                                    : book.description}
                             </TableCell>
-                            <TableCell>{book?.copies}</TableCell>
+                            <TableCell className='text-center'>{book?.copies}</TableCell>
                             <TableCell>
                                 <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium 
               ${book?.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
@@ -65,12 +65,12 @@ export default function BooksTable() {
                                 </span>
                             </TableCell>
                             <TableCell>
-                            <div className="mt-4 flex gap-2 justify-end items-center">
-                <Link to={`/books/${book?._id}`}><Button className="bg-primary">View</Button></Link>
-                <Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button>
-                <Button className="border bg-white hover:bg-red-50 text-red-500 border-red-500 "><RiDeleteBin6Line /></Button>
-                <Link to={`/borrow/${book?._id}`}><Button variant="outline">Borrow</Button></Link>
-            </div>
+                                <div className="flex gap-2 justify-end items-center">
+                                    <Link to={`/books/${book?._id}`}><Button className="bg-primary">View</Button></Link>
+                                    <Link to={`/edit-book/${book?._id}`}><Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button></Link>
+                                    <Button className="border bg-white hover:bg-red-50 text-red-500 border-red-500 "><RiDeleteBin6Line /></Button>
+                                    <Link to={`/borrow/${book?._id}`}><Button variant="outline">Borrow</Button></Link>
+                                </div>
                             </TableCell>
                         </TableRow>
                     ))
