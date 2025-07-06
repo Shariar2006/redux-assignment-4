@@ -1,6 +1,9 @@
 import { Button } from '@/components/ui/button'
 import type { IBook } from '@/types/book.interface'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
+import { CiEdit } from "react-icons/ci";
+
 
 interface IProps {
     book: IBook
@@ -26,12 +29,10 @@ export default function BookCard({ book }: IProps) {
                 </span>
             </p>
 
-            {/* Optional Action Buttons */}
             <div className="mt-4 flex gap-2">
                 <Link to={`/books/${book?._id}`}><Button className="bg-primary">View</Button></Link>
-                {/* <Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button>
-                <Button className="border bg-white hover:bg-red-50 text-red-500 border-red-500 "><RiDeleteBin6Line /></Button> */}
-                {/* <BorrowForm book={book}/> */}
+                <Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button>
+                <Button className="border bg-white hover:bg-red-50 text-red-500 border-red-500 "><RiDeleteBin6Line /></Button>
                 <Link to={`/borrow/${book?._id}`}><Button variant="outline">Borrow</Button></Link>
             </div>
         </div>
