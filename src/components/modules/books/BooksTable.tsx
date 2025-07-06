@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { CiEdit } from 'react-icons/ci'
 import { RiDeleteBin6Line } from 'react-icons/ri'
+import DeleteBook from './DeleteBook'
 
 export default function BooksTable() {
 
@@ -68,7 +69,7 @@ export default function BooksTable() {
                                 <div className="flex gap-2 justify-end items-center">
                                     <Link to={`/books/${book?._id}`}><Button className="bg-primary">View</Button></Link>
                                     <Link to={`/edit-book/${book?._id}`}><Button className="border bg-white hover:bg-gray-100 text-black border-black"><CiEdit /></Button></Link>
-                                    <Button className="border bg-white hover:bg-red-50 text-red-500 border-red-500 "><RiDeleteBin6Line /></Button>
+                                    <DeleteBook bookId={book?._id}/>
                                     <Link to={`/borrow/${book?._id}`}><Button variant="outline">Borrow</Button></Link>
                                 </div>
                             </TableCell>
