@@ -7,12 +7,11 @@ function App() {
 
   return (
     <main className='container mx-auto'>
-      <Navbar/>
-      <div className='min-h-[60vh] px-4'>
-
-      <Outlet/>
+      <Navbar />
+      <div className='min-h-[60vh]'>
+        <Outlet />
       </div>
-      <Footer/>
+      <Footer />
     </main>
   )
 }

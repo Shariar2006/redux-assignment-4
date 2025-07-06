@@ -25,8 +25,6 @@ interface IProps {
 }
 
 export default function BorrowForm({ book }: IProps) {
-
-    const [open, setOpen] = useState(false)
     const navigate = useNavigate()
     const form = useForm()
 
@@ -44,89 +42,70 @@ export default function BorrowForm({ book }: IProps) {
         if (res.data.success) {
             toast(res.data.message)
             form.reset()
-            setOpen(false)
             navigate('/borrow-summary')
         }
     }
 
     return (
-        <Dialog onOpenChange={setOpen} open={open}>
-            <form>
-                <DialogTrigger asChild>
-                    <Button variant="outline" disabled={!book?.available}>Borrow</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Borrow a book</DialogTitle>
-                    </DialogHeader>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <FormField
+                    control={form.control}
+                    name="quantity"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Quantity</FormLabel>
+                            <FormControl>
+                                <Input type='number' {...field} max={book.copies} min={0} value={field.value || ''} placeholder='Number of copies' />
+                            </FormControl>
+                            <p className='text-sm text-gray-500'>Available copies: {book.copies}</p>
+                        </FormItem>
+                    )}
+                />
 
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                            <FormField
-                                control={form.control}
-                                name="quantity"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Quantity</FormLabel>
-                                        <FormControl>
-                                            <Input type='number' {...field} max={book.copies} min={0} value={field.value || ''} placeholder='Number of copies' />
-                                        </FormControl>
-                                        <p className='text-sm text-gray-500'>Available copies: {book.copies}</p>
-                                    </FormItem>
-                                )}
-                            />
+                <FormField
+                    control={form.control}
+                    name="dueDate"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel>Due date</FormLabel>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <FormControl>
+                                        <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                                "pl-3 text-left font-normal",
+                                                !field.value && "text-muted-foreground"
+                                            )}
+                                        >
+                                            {field.value ? (
+                                                format(field.value, "PPP")
+                                            ) : (
+                                                <span>Pick a date</span>
+                                            )}
+                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                        </Button>
+                                    </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={field.value}
+                                        onSelect={field.onChange}
+                                        disabled={(date) =>
+                                            date < new Date()
+                                        }
+                                        captionLayout="dropdown"
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </FormItem>
+                    )}
+                />
 
-                            <FormField
-                                control={form.control}
-                                name="dueDate"
-                                render={({ field }) => (
-                                    <FormItem className="flex flex-col">
-                                        <FormLabel>Due date</FormLabel>
-                                        <Popover>
-                                            <PopoverTrigger asChild>
-                                                <FormControl>
-                                                    <Button
-                                                        variant={"outline"}
-                                                        className={cn(
-                                                            "pl-3 text-left font-normal",
-                                                            !field.value && "text-muted-foreground"
-                                                        )}
-                                                    >
-                                                        {field.value ? (
-                                                            format(field.value, "PPP")
-                                                        ) : (
-                                                            <span>Pick a date</span>
-                                                        )}
-                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                                    </Button>
-                                                </FormControl>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-auto p-0" align="start">
-                                                <Calendar
-                                                    mode="single"
-                                                    selected={field.value}
-                                                    onSelect={field.onChange}
-                                                    disabled={(date) =>
-                                                        date < new Date()
-                                                    }
-                                                    captionLayout="dropdown"
-                                                />
-                                            </PopoverContent>
-                                        </Popover>
-                                    </FormItem>
-                                )}
-                            />
-
-                            <DialogFooter>
-                                <DialogClose asChild>
-                                    <Button variant="outline">Cancel</Button>
-                                </DialogClose>
-                                <Button type="submit">{isLoading ? 'Please wait...' : 'Borrow'}</Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
+                <Button disabled={!book?.available} className={`${!book.available ? 'cursor-not-allowed' : ''} `} type="submit">{isLoading ? 'Please wait...' : 'Borrow'}</Button>
             </form>
-        </Dialog>
+        </Form>
     )
 }

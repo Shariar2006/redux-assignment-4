@@ -18,7 +18,7 @@ export default function Books() {
     }
 
     return (
-        <div className="py-14 space-y-10">
+        <div className="py-14 space-y-10 px-4">
             <div className="">
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
                     Explore Our Collection
