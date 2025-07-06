@@ -23,10 +23,10 @@ export default function Navbar() {
       </div>
 
       <div
-       className="md:hidden block"
+        className="md:hidden block"
       >
-        <NavDrawer/>
-      
+        <NavDrawer />
+
       </div>
     </nav>
   )

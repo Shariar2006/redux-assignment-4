@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useState } from 'react'
 import {
@@ -10,77 +9,129 @@ import {
     FormLabel,
 } from "@/components/ui/form"
 import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form'
-import type { IBook } from '@/types/book.interface'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
-import { format } from 'date-fns'
-import { CalendarIcon } from 'lucide-react'
-import { Calendar } from '@/components/ui/calendar'
-import { useCreateBorrowMutation } from '@/redux/api/baseApi'
+import { useCreateBookMutation } from '@/redux/api/baseApi'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 
 export default function AddBookForm() {
 
-    const [open, setOpen] = useState(false)
     const navigate = useNavigate()
     const form = useForm()
 
-    const [createBorrow, { isLoading }] = useCreateBorrowMutation()
+    const [createBook, { isLoading }] = useCreateBookMutation()
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        // const borrowData = {
-        //     ...data,
-        //     book: book?._id
-        // }
-        console.log(data)
-
-        // const res = await createBorrow(borrowData)
-        // console.log(res)
-        // if (res.data.success) {
-        //     toast(res.data.message)
-        //     form.reset()
-        //     setOpen(false)
-        //     navigate('/borrow-summary')
-        // }
+        const res = await createBook(data)
+        console.log(res)
+        if (res.data.success) {
+            toast(res.data.message)
+            form.reset()
+            navigate('/books')
+        }
     }
 
     return (
-        <Dialog onOpenChange={setOpen} open={open}>
-            <form>
-                <DialogTrigger asChild>
-                    <Button variant="outline">Add Book</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Borrow a book</DialogTitle>
-                    </DialogHeader>
 
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                            <FormField
-                                control={form.control}
-                                name="quantity"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Quantity</FormLabel>
-                                        <FormControl>
-                                            <Input type='number' {...field}  min={0} value={field.value || ''} placeholder='Number of copies' />
-                                        </FormControl>
-                                    </FormItem>
-                                )}
-                            />
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Title <span className='text-red-500'>*</span></FormLabel>
+                            <FormControl>
+                                <Input required {...field} value={field.value || ''} placeholder='Title of book' />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
 
-                            <DialogFooter>
-                                <DialogClose asChild>
-                                    <Button variant="outline">Cancel</Button>
-                                </DialogClose>
-                                <Button type="submit">{isLoading ? 'Please wait...' : 'Borrow'}</Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
+                <FormField
+                    control={form.control}
+                    name="author"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Author name <span className='text-red-500'>*</span></FormLabel>
+                            <FormControl>
+                                <Input required {...field} value={field.value || ''} placeholder='Author name' />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="genre"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Genre <span className='text-red-500'>*</span></FormLabel>
+                            <Select required onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl className='w-full'>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a genre" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    <SelectItem value="FICTION">FICTION</SelectItem>
+                                    <SelectItem value="NON_FICTION">NON_FICTION</SelectItem>
+                                    <SelectItem value="SCIENCE">SCIENCE</SelectItem>
+                                    <SelectItem value="HISTORY">HISTORY</SelectItem>
+                                    <SelectItem value="BIOGRAPHY">BIOGRAPHY</SelectItem>
+                                    <SelectItem value="FANTASY">FANTASY</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="copies"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Copies <span className='text-red-500'>*</span></FormLabel>
+                            <FormControl>
+                                <Input required type='number' {...field} min={0} value={field.value || ''} placeholder='Number of copies' />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="isbn"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>ISBN <span className='text-red-500'>*</span></FormLabel>
+                            <FormControl>
+                                <Input required {...field} min={0} value={field.value || ''} placeholder='Enter ISBN' />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder="Tell us a little bit about the book"
+                                    className="resize-none"
+                                    {...field}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+
+                <Button type="submit">{isLoading ? 'Please wait...' : 'Create Book'}</Button>
             </form>
-        </Dialog>
+        </Form>
     )
 }

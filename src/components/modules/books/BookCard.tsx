@@ -1,8 +1,5 @@
 import { Button } from '@/components/ui/button'
 import type { IBook } from '@/types/book.interface'
-import { CiEdit } from 'react-icons/ci'
-import { RiDeleteBin6Line } from 'react-icons/ri'
-import BorrowForm from '../borrow/BorrowForm'
 import { Link } from 'react-router-dom'
 
 interface IProps {
@@ -13,7 +10,7 @@ export default function BookCard({book}: IProps) {
     return (
         <div className="rounded-lg p-4 shadow shadow-primary/90 bg-white">
             <h2 className="text-xl font-semibold">{book.title}</h2>
-            <p className="text-sm text-gray-600">by {book.author}</p>
+            <p className="text-xs text-gray-600 my-1">by {book.author}</p>
             <p className="text-sm text-gray-500">{book.genre}</p>
 
             <p className="mt-2 text-sm text-gray-700 line-clamp-3">
