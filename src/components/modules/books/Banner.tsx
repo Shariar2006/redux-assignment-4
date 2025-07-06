@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import video from '@/assets/bannar-video1.mp4'
+import { Link } from 'react-router-dom'
 
 export default function Banner() {
     return (
@@ -24,9 +25,9 @@ export default function Banner() {
                 <p className="text-xl md:text-2xl lg:text-5xl max-w-4xl">
                     Welcome to Our Digital Library – A Gateway to Endless Knowledge, Books, and Learning Resources.
                 </p>
-                <Button className="cursor-pointer bg-primary">
+                <Link to={'/books'}><Button className="cursor-pointer bg-primary">
                     Browse Collection
-                </Button>
+                </Button></Link>
             </div>
 
         </div>

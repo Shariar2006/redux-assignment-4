@@ -37,7 +37,7 @@ export default function BorrowSummaryTable() {
             </TableHeader>
             <TableBody>
                 {
-                    data.data.map((borrow: IBorrowSummaryItem, index: number) => (
+                    data?.data?.map((borrow: IBorrowSummaryItem, index: number) => (
                         <TableRow key={index}>
                             <TableCell className="font-medium">{borrow?.book?.title}</TableCell>
                             <TableCell>{borrow?.book?.isbn}</TableCell>

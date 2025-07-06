@@ -37,8 +37,8 @@ export default function BorrowForm({ book }: IProps) {
 
         const res = await createBorrow(borrowData)
         console.log(res)
-        if (res.data.success) {
-            toast(res.data.message)
+        if (res.data?.success) {
+            toast(res.data?.message)
             form.reset()
             navigate('/borrow-summary')
         }
@@ -54,9 +54,9 @@ export default function BorrowForm({ book }: IProps) {
                         <FormItem>
                             <FormLabel>Quantity</FormLabel>
                             <FormControl>
-                                <Input type='number' {...field} max={book.copies} min={0} value={field.value || ''} placeholder='Number of copies' />
+                                <Input type='number' {...field} max={book?.copies} min={0} value={field.value || ''} placeholder='Number of copies' />
                             </FormControl>
-                            <p className='text-sm text-gray-500'>Available copies: {book.copies}</p>
+                            <p className='text-sm text-gray-500'>Available copies: {book?.copies}</p>
                         </FormItem>
                     )}
                 />

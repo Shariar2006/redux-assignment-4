@@ -12,7 +12,6 @@ import type { IBook } from '@/types/book.interface'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { CiEdit } from 'react-icons/ci'
-import { RiDeleteBin6Line } from 'react-icons/ri'
 import DeleteBook from './DeleteBook'
 
 export default function BooksTable() {
@@ -47,8 +46,8 @@ export default function BooksTable() {
             </TableHeader>
             <TableBody>
                 {
-                    data.data.map((book: IBook) => (
-                        <TableRow key={book._id}>
+                    data?.data?.map((book: IBook) => (
+                        <TableRow key={book?._id}>
                             <TableCell className="font-medium">{book?.title}</TableCell>
                             <TableCell>{book?.author}</TableCell>
                             <TableCell>{book?.genre}</TableCell>

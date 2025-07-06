@@ -12,7 +12,7 @@ export default function Borrow() {
         return <p>Loading...</p>
     }
 
-    console.log(data.data)
+    console.log(data?.data)
 
     return (
         <div className="py-8 max-w-2xl mx-auto space-y-6 px-4">
@@ -24,7 +24,7 @@ export default function Borrow() {
                     }
                 </>
             </div>
-            <BorrowForm book={data.data} />
+            <BorrowForm book={data?.data} />
         </div>
     )
 }

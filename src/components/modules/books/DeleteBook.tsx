@@ -25,8 +25,8 @@ export default function DeleteBook({ bookId }: IProp) {
     const handleDelete = async (id: string) => {
         console.log(id)
         const res = await deleteBook(id)
-        if (res.data.success) {
-            toast(res.data.message)
+        if (res.data?.success) {
+            toast(res.data?.message)
         }
     }
 

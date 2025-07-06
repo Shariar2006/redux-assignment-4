@@ -1,5 +1,4 @@
 import BorrowSummaryTable from '@/components/modules/borrow/BorrowSummaryTable'
-import React from 'react'
 
 export default function BorrowSummary() {
   return (

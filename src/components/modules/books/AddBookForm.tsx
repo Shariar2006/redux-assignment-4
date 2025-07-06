@@ -24,8 +24,8 @@ export default function AddBookForm() {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const res = await createBook(data)
         console.log(res)
-        if (res.data.success) {
-            toast(res.data.message)
+        if (res.data?.success) {
+            toast(res.data?.message)
             form.reset()
             navigate('/books')
         }

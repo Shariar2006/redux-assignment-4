@@ -38,8 +38,8 @@ export default function EditBookForm({ book }: IProps) {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const res = await updateBook({id:book?._id, body:data})
         console.log(res)
-        if (res.data.success) {
-            toast(res.data.message)
+        if (res.data?.success) {
+            toast(res.data?.message)
             form.reset()
             navigate('/books')
         }

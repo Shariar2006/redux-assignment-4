@@ -1,5 +1,4 @@
 import AddBookForm from '@/components/modules/books/AddBookForm'
-import React from 'react'
 
 export default function AddBook() {
   return (
